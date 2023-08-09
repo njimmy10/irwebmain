@@ -50,7 +50,25 @@ export namespace Components {
         "text": any;
     }
     interface IrSwitch {
+        "baseClass"?: string;
+        "classOn"?: string;
+        "colorOn"?: string;
+        "disabled"?: boolean;
+        "handleWidth"?: string | 'auto';
+        "indeterminate"?: boolean;
+        "inverse"?: boolean;
+        "labelOff": string;
+        "labelOn": string;
+        "labelText"?: string;
+        "labelWidth"?: string | 'auto';
+        "offClass"?: string;
+        "offColor"?: string;
+        "radioAllOff"?: boolean;
+        "readonly"?: boolean;
+        "size"?: string | 'mini' | 'small' | 'normal' | 'large';
+        "switch_animate"?: boolean;
         "value": boolean;
+        "wrapperClass"?: string;
     }
     interface IrTextarea {
         "cols": number;
@@ -200,8 +218,26 @@ declare namespace LocalJSX {
         "text"?: any;
     }
     interface IrSwitch {
+        "baseClass"?: string;
+        "classOn"?: string;
+        "colorOn"?: string;
+        "disabled"?: boolean;
+        "handleWidth"?: string | 'auto';
+        "indeterminate"?: boolean;
+        "inverse"?: boolean;
+        "labelOff"?: string;
+        "labelOn"?: string;
+        "labelText"?: string;
+        "labelWidth"?: string | 'auto';
+        "offClass"?: string;
+        "offColor"?: string;
         "onValueChange"?: (event: IrSwitchCustomEvent<boolean>) => void;
+        "radioAllOff"?: boolean;
+        "readonly"?: boolean;
+        "size"?: string | 'mini' | 'small' | 'normal' | 'large';
+        "switch_animate"?: boolean;
         "value"?: boolean;
+        "wrapperClass"?: string;
     }
     interface IrTextarea {
         "cols"?: number;
