@@ -5,126 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
     <title>Stencil Component Starter</title>
 
-    <script type="module" src="/build/training.esm.js"></script>
-    <script nomodule src="/build/training.js"></script>
+    <script type="module" src="/build/ir-webcmp.esm.js"></script>
+    <script nomodule src="/build/ir-webcmp.js"></script>
   </head>
   <body>
-    <!-- <ir-guest-info></ir-guest-info> -->
-    <ir-switch label="Switch" checked></ir-switch>
-    <button onclick="fetchGuestInfo()" class="btn btn-success">Fetch Guest Info</button>
-    <button onclick="reset()" class="btn btn-warning">Reset Data Fetched</button>
+    <ir-radio-btn ></ir-radio-btn>
+
     <script>
-      function reset() {
-        const guestInfo = document.querySelector('ir-guest-info');
-        guestInfo.data = null;
-      }
-      function fetchGuestInfo() {
-        var myHeaders = new Headers();
-        myHeaders.append('Content-Type', 'application/json');
-
-        var raw = JSON.stringify({
-          BH_ID: 13509433,
-          LANGUAGE_ABBREVIATION: 'EN',
-          EXCLUDE_AC: true,
-          EXCLUDE_BH_POLICIES: false,
-        });
-
-        var requestOptions = {
-          method: 'POST',
-          headers: myHeaders,
-          body: raw,
-          redirect: 'follow',
-        };
-
-        fetch(
-          'https://gateway.igloorooms.com/IR/Get_Bh_Full?Ticket=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2OTE1ODQ4NTQsIkNMQUlNLTAxIjoicktLMi9DY1dQQnM9IiwiQ0xBSU0tMDIiOiI5UStMQm93VTl6az0iLCJDTEFJTS0wMyI6Ilp3Tys5azJoTzUwPSIsIkNMQUlNLTA0IjoidEx1dmxrYUxwWktBZFQ0QXlPVFlSSU1uZVkvOFlGalYwWitvUzVITXlsTT0ifQ.H7XAvmpjf3BTAo6VidJtq3DRfU_FKIp4lpaUI4V98RA',
-          requestOptions,
-        )
-          .then(response => response.json())
-          .then(result => {
-            let _data = {
-              firstName: result.My_Result.My_Guest.FIRST_NAME,
-              lastName: result.My_Result.My_Guest.LAST_NAME,
-              email: result.My_Result.My_Guest.My_User.EMAIL,
-              altEmail: result.My_Result.My_Guest.My_User.DISCLOSED_EMAIL,
-              password: result.My_Result.My_Guest.My_User.PASSWORD,
-              country: result.My_Result.My_Guest.COUNTRY_ID,
-              city: result.My_Result.My_Guest.CITY,
-              address: result.My_Result.My_Guest.ADDRESS,
-              mobile: result.My_Result.My_Guest.MOBILE,
-              additionalNumber: result.My_Result.My_Guest.PHONE_PREFIX,
-              newsletter: result.My_Result.My_Guest.IS_NEWS_LETTER,
-              currency: result.My_Result.My_Guest.My_User.CURRENCY,
-              language: result.My_Result.My_Guest.My_User.LANGUAGE,
-            };
-            console.log(_data);
-            const guestInfo = document.querySelector('ir-guest-info');
-            guestInfo.data = _data;
-          })
-          .catch(error => console.log('error', error));
-      }
-      document.addEventListener('submitForm', e => {
-        console.log('submitForm', e.detail);
-      });
-
-      document.addEventListener('getSetupData', e => {
-        fetchDataFromAPI();
-      });
-      function fetchDataFromAPI() {
-        try {
-          const myHeaders = new Headers();
-          myHeaders.append('Content-Type', 'application/json');
-          const raw = JSON.stringify({
-            language: 'EN',
-          });
-          const requestOptions = {
-            method: 'POST',
-            headers: myHeaders,
-            body: raw,
-            redirect: 'follow',
-          };
-          const response = fetch(
-            'https://gateway.igloorooms.com/IR/Get_Exposed_Countries?Ticket=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2OTE1ODQ4NTQsIkNMQUlNLTAxIjoicktLMi9DY1dQQnM9IiwiQ0xBSU0tMDIiOiI5UStMQm93VTl6az0iLCJDTEFJTS0wMyI6Ilp3Tys5azJoTzUwPSIsIkNMQUlNLTA0IjoidEx1dmxrYUxwWktBZFQ0QXlPVFlSSU1uZVkvOFlGalYwWitvUzVITXlsTT0ifQ.H7XAvmpjf3BTAo6VidJtq3DRfU_FKIp4lpaUI4V98RA',
-            requestOptions,
-          )
-            .then(response => response.json())
-            .then(result => {
-              const guestInfo = document.querySelector('ir-guest-info');
-              guestInfo.setupDataCountries = result.My_Result.map(item => {
-                return {
-                  value: item.id,
-                  text: item.name,
-                };
-              });
-              guestInfo.setupDataCountriesCode = result.My_Result.map(item => {
-                return {
-                  value: item.phone_prefix,
-                  text: item.phone_prefix,
-                };
-              });
-            });
-        } catch (error) {
-          console.error('Error fetching data:', error);
-          return null;
+      const radioBtn = document.querySelector('ir-radio-btn');
+      radioBtn.data = [
+        {
+          text: "",
+          value: "option1",
+        },
+        {
+          text: "Option 2",
+          value: "option2",
         }
-      }
+      ]
 
-      // document.addEventListener('checkboxChange', e => {
-      //   console.log('textChange', e.detail);
-      // });
-    </script>
-    <!-- <ir-select label="Select" first-option="..."></ir-select>
+      radioBtn.disabled=false
 
-    <script>
-      const select = document.querySelector('ir-select');
-      select.data = [
-        { value: '1', text: 'One' },
-        { value: '2', text: 'Two' },
-        { value: '3', text: 'Three' },
-      ];
-      document.addEventListener('selectChange', e => {
-        console.log('selectChange', e.detail);
-      });
-    </script> -->
+      radioBtn.addEventListener('selectChange', (e) => {
+        console.log(e.detail);
+      })
+      </script>
   </body>
 </html>

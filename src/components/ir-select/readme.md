@@ -13,9 +13,11 @@
 | `data`           | --                |             | `selectOption[]` | `undefined` |
 | `firstOption`    | `first-option`    |             | `string`         | `'Select'`  |
 | `label`          | `label`           |             | `string`         | `'<label>'` |
+| `name`           | `name`            |             | `string`         | `undefined` |
 | `required`       | `required`        |             | `boolean`        | `undefined` |
 | `selectStyle`    | `select-style`    |             | `boolean`        | `true`      |
-| `selectedValue`  | `selected-value`  |             | `string`         | `''`        |
+| `selectedValue`  | `selected-value`  |             | `any`            | `null`      |
+| `submited`       | `submited`        |             | `boolean`        | `false`     |
 
 
 ## Events

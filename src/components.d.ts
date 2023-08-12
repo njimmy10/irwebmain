@@ -5,8 +5,8 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { selectOption } from "./common/models";
-export { selectOption } from "./common/models";
+import { guestInfo, selectOption } from "./common/models";
+export { guestInfo, selectOption } from "./common/models";
 export namespace Components {
     interface IrButton {
         "btn_block": boolean;
@@ -15,14 +15,16 @@ export namespace Components {
         "btn_size": string;
         "btn_type": string;
         "icon": string;
+        "name": string;
         "text": any;
     }
     interface IrCheckbox {
         "checked": boolean;
         "label": string;
+        "name": string;
     }
     interface IrGuestInfo {
-        "data": any;
+        "data": guestInfo;
         "setupDataCountries": selectOption[];
         "setupDataCountriesCode": selectOption[];
     }
@@ -31,20 +33,36 @@ export namespace Components {
     }
     interface IrInputText {
         "LabelAvailable": boolean;
+        "inputStyle": boolean;
         "label": string;
+        "name": string;
         "placeholder": string;
         "required": boolean;
+        "submited": boolean;
         "text": any;
         "type": string;
+    }
+    interface IrRadioBtn {
+        "data": selectOption[];
+        "disabled": boolean;
+        "selectedValue": any;
     }
     interface IrSelect {
         "LabelAvailable": boolean;
         "data": selectOption[];
         "firstOption": string;
         "label": string;
+        "name": string;
         "required": boolean;
         "selectStyle": boolean;
-        "selectedValue": string;
+        "selectedValue": any;
+        "submited": boolean;
+    }
+    interface IrSidebar {
+        "name": string;
+        "open": boolean;
+        "side": 'right' | 'left';
+        "toggleSidebar": () => Promise<void>;
     }
     interface IrSpan {
         "text": any;
@@ -77,6 +95,20 @@ export namespace Components {
         "rows": number;
         "text": string;
     }
+    interface MyComponent {
+        /**
+          * The first name
+         */
+        "first": string;
+        /**
+          * The last name
+         */
+        "last": string;
+        /**
+          * The middle name
+         */
+        "middle": string;
+    }
 }
 export interface IrButtonCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -93,6 +125,10 @@ export interface IrGuestInfoCustomEvent<T> extends CustomEvent<T> {
 export interface IrInputTextCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLIrInputTextElement;
+}
+export interface IrRadioBtnCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLIrRadioBtnElement;
 }
 export interface IrSelectCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -133,11 +169,23 @@ declare global {
         prototype: HTMLIrInputTextElement;
         new (): HTMLIrInputTextElement;
     };
+    interface HTMLIrRadioBtnElement extends Components.IrRadioBtn, HTMLStencilElement {
+    }
+    var HTMLIrRadioBtnElement: {
+        prototype: HTMLIrRadioBtnElement;
+        new (): HTMLIrRadioBtnElement;
+    };
     interface HTMLIrSelectElement extends Components.IrSelect, HTMLStencilElement {
     }
     var HTMLIrSelectElement: {
         prototype: HTMLIrSelectElement;
         new (): HTMLIrSelectElement;
+    };
+    interface HTMLIrSidebarElement extends Components.IrSidebar, HTMLStencilElement {
+    }
+    var HTMLIrSidebarElement: {
+        prototype: HTMLIrSidebarElement;
+        new (): HTMLIrSidebarElement;
     };
     interface HTMLIrSpanElement extends Components.IrSpan, HTMLStencilElement {
     }
@@ -157,16 +205,25 @@ declare global {
         prototype: HTMLIrTextareaElement;
         new (): HTMLIrTextareaElement;
     };
+    interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
+    }
+    var HTMLMyComponentElement: {
+        prototype: HTMLMyComponentElement;
+        new (): HTMLMyComponentElement;
+    };
     interface HTMLElementTagNameMap {
         "ir-button": HTMLIrButtonElement;
         "ir-checkbox": HTMLIrCheckboxElement;
         "ir-guest-info": HTMLIrGuestInfoElement;
         "ir-icon": HTMLIrIconElement;
         "ir-input-text": HTMLIrInputTextElement;
+        "ir-radio-btn": HTMLIrRadioBtnElement;
         "ir-select": HTMLIrSelectElement;
+        "ir-sidebar": HTMLIrSidebarElement;
         "ir-span": HTMLIrSpanElement;
         "ir-switch": HTMLIrSwitchElement;
         "ir-textarea": HTMLIrTextareaElement;
+        "my-component": HTMLMyComponentElement;
     }
 }
 declare namespace LocalJSX {
@@ -177,18 +234,20 @@ declare namespace LocalJSX {
         "btn_size"?: string;
         "btn_type"?: string;
         "icon"?: string;
+        "name"?: string;
         "onClickHanlder"?: (event: IrButtonCustomEvent<any>) => void;
         "text"?: any;
     }
     interface IrCheckbox {
         "checked"?: boolean;
         "label"?: string;
+        "name"?: string;
         "onCheckboxChange"?: (event: IrCheckboxCustomEvent<boolean>) => void;
     }
     interface IrGuestInfo {
-        "data"?: any;
+        "data"?: guestInfo;
         "onGetSetupData"?: (event: IrGuestInfoCustomEvent<any>) => void;
-        "onSubmitForm"?: (event: IrGuestInfoCustomEvent<any>) => void;
+        "onSubmitForm"?: (event: IrGuestInfoCustomEvent<guestInfo>) => void;
         "setupDataCountries"?: selectOption[];
         "setupDataCountriesCode"?: selectOption[];
     }
@@ -197,22 +256,38 @@ declare namespace LocalJSX {
     }
     interface IrInputText {
         "LabelAvailable"?: boolean;
+        "inputStyle"?: boolean;
         "label"?: string;
+        "name"?: string;
         "onTextChange"?: (event: IrInputTextCustomEvent<any>) => void;
         "placeholder"?: string;
         "required"?: boolean;
+        "submited"?: boolean;
         "text"?: any;
         "type"?: string;
+    }
+    interface IrRadioBtn {
+        "data"?: selectOption[];
+        "disabled"?: boolean;
+        "onSelectChange"?: (event: IrRadioBtnCustomEvent<any>) => void;
+        "selectedValue"?: any;
     }
     interface IrSelect {
         "LabelAvailable"?: boolean;
         "data"?: selectOption[];
         "firstOption"?: string;
         "label"?: string;
+        "name"?: string;
         "onSelectChange"?: (event: IrSelectCustomEvent<any>) => void;
         "required"?: boolean;
         "selectStyle"?: boolean;
-        "selectedValue"?: string;
+        "selectedValue"?: any;
+        "submited"?: boolean;
+    }
+    interface IrSidebar {
+        "name"?: string;
+        "open"?: boolean;
+        "side"?: 'right' | 'left';
     }
     interface IrSpan {
         "text"?: any;
@@ -246,16 +321,33 @@ declare namespace LocalJSX {
         "rows"?: number;
         "text"?: string;
     }
+    interface MyComponent {
+        /**
+          * The first name
+         */
+        "first"?: string;
+        /**
+          * The last name
+         */
+        "last"?: string;
+        /**
+          * The middle name
+         */
+        "middle"?: string;
+    }
     interface IntrinsicElements {
         "ir-button": IrButton;
         "ir-checkbox": IrCheckbox;
         "ir-guest-info": IrGuestInfo;
         "ir-icon": IrIcon;
         "ir-input-text": IrInputText;
+        "ir-radio-btn": IrRadioBtn;
         "ir-select": IrSelect;
+        "ir-sidebar": IrSidebar;
         "ir-span": IrSpan;
         "ir-switch": IrSwitch;
         "ir-textarea": IrTextarea;
+        "my-component": MyComponent;
     }
 }
 export { LocalJSX as JSX };
@@ -267,10 +359,13 @@ declare module "@stencil/core" {
             "ir-guest-info": LocalJSX.IrGuestInfo & JSXBase.HTMLAttributes<HTMLIrGuestInfoElement>;
             "ir-icon": LocalJSX.IrIcon & JSXBase.HTMLAttributes<HTMLIrIconElement>;
             "ir-input-text": LocalJSX.IrInputText & JSXBase.HTMLAttributes<HTMLIrInputTextElement>;
+            "ir-radio-btn": LocalJSX.IrRadioBtn & JSXBase.HTMLAttributes<HTMLIrRadioBtnElement>;
             "ir-select": LocalJSX.IrSelect & JSXBase.HTMLAttributes<HTMLIrSelectElement>;
+            "ir-sidebar": LocalJSX.IrSidebar & JSXBase.HTMLAttributes<HTMLIrSidebarElement>;
             "ir-span": LocalJSX.IrSpan & JSXBase.HTMLAttributes<HTMLIrSpanElement>;
             "ir-switch": LocalJSX.IrSwitch & JSXBase.HTMLAttributes<HTMLIrSwitchElement>;
             "ir-textarea": LocalJSX.IrTextarea & JSXBase.HTMLAttributes<HTMLIrTextareaElement>;
+            "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
         }
     }
 }

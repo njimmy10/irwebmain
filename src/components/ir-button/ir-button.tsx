@@ -4,6 +4,7 @@ import { Component, Prop, Event, EventEmitter, h } from '@stencil/core';
   tag: 'ir-button',
 })
 export class IrButton {
+  @Prop() name: string;
   @Prop() text;
   @Prop() icon = 'ft-save';
   @Prop() btn_color = 'btn-info';

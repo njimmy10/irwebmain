@@ -5,6 +5,7 @@ import { Component, Prop, h, Event, EventEmitter } from '@stencil/core';
   styleUrl: 'ir-checkbox.css',
 })
 export class IrCheckBox {
+  @Prop() name: string;
   @Prop({ mutable: true, reflect: true }) checked = false;
   @Prop() label = '<label>';
   connectedCallback() {

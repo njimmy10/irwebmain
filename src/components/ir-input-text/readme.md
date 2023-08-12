@@ -10,9 +10,12 @@
 | Property         | Attribute         | Description | Type      | Default           |
 | ---------------- | ----------------- | ----------- | --------- | ----------------- |
 | `LabelAvailable` | `label-available` |             | `boolean` | `true`            |
+| `inputStyle`     | `input-style`     |             | `boolean` | `true`            |
 | `label`          | `label`           |             | `string`  | `'<label>'`       |
+| `name`           | `name`            |             | `string`  | `undefined`       |
 | `placeholder`    | `placeholder`     |             | `string`  | `'<placeholder>'` |
 | `required`       | `required`        |             | `boolean` | `undefined`       |
+| `submited`       | `submited`        |             | `boolean` | `false`           |
 | `text`           | `text`            |             | `any`     | `undefined`       |
 | `type`           | `type`            |             | `string`  | `'text'`          |
 

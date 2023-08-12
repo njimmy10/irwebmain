@@ -5,64 +5,77 @@ import { selectOption } from '../../common/models';
   tag: 'ir-select',
 })
 export class IrSelect {
+  @Prop() name: string;
   @Prop() data: selectOption[];
   @Prop() label = '<label>';
-  @Prop({ reflect: true }) selectedValue = '';
+  @Prop({ reflect: true, mutable: true }) selectedValue = null;
   @Prop() required: boolean;
   @Prop() LabelAvailable: boolean = true;
   @Prop() firstOption: string = 'Select';
   @Prop() selectStyle: boolean = true;
+  @Prop() submited: boolean = false;
 
-  @State() selected: string;
   @State() initial: boolean = true;
+  @State() valid: boolean = false;
   @Event() selectChange: EventEmitter;
 
   @Watch('selectedValue')
   watchHandler(newValue: string) {
-    this.selected = newValue;
+    if (newValue !== null && this.required) {
+      this.valid = true;
+    }
+  }
+  @Watch('submited')
+  watchHandler2(newValue: boolean) {
+    if (newValue && this.required) {
+      this.initial = false;
+    }
   }
 
-  componentwillload() {
-    this.selected = this.selectedValue;
-  }
+  componentwillload() {}
   disconnectedCallback() {}
   handleSelectChange(event) {
     if (this.required) {
-      alert('required');
       this.initial = false;
-      this.selected = event.target.value;
-      this.selectChange.emit(this.selected);
+      this.valid = event.target.checkValidity();
+      this.selectedValue = event.target.value;
+      this.selectChange.emit(this.selectedValue);
     } else {
-      alert('not required');
-      this.selected = event.target.value;
-      this.selectChange.emit(this.selected);
+      this.selectedValue = event.target.value;
+      this.selectChange.emit(this.selectedValue);
     }
   }
+  count = 0;
 
   render() {
     let className = 'form-control';
-    if (this.selected === '' && !this.initial && this.required) {
-      className = 'form-control border-danger';
-    }
-
+    let label = (
+      <div class="input-group-prepend">
+        <label class="input-group-text">
+          {this.label}
+          {this.required ? '*' : ''}
+        </label>
+      </div>
+    );
     if (this.selectStyle === false) {
       className = '';
+    }
+    if (this.required && !this.valid && !this.initial) {
+      className = `${className} border-danger`;
+    }
+
+    if (!this.LabelAvailable) {
+      label = '';
     }
 
     return (
       <div class="form-group">
         <div class="input-group">
-          <div class="input-group-prepend">
-            <label class="input-group-text">
-              {this.label}
-              {this.required ? '*' : ''}
-            </label>
-          </div>
+          {label}
           <select class={className} onInput={this.handleSelectChange.bind(this)} required={this.required}>
-            <option value="">{this.firstOption}</option>
+            <option value={null}>{this.firstOption}</option>
             {this.data.map(item => {
-              if (this.selected === item.value) {
-                console.log(this.selected);
+              if (this.selectedValue === item.value) {
                 return (
                   <option selected value={item.value}>
                     {item.text}

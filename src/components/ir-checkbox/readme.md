@@ -11,6 +11,7 @@
 | --------- | --------- | ----------- | --------- | ----------- |
 | `checked` | `checked` |             | `boolean` | `false`     |
 | `label`   | `label`   |             | `string`  | `'<label>'` |
+| `name`    | `name`    |             | `string`  | `undefined` |
 
 
 ## Events

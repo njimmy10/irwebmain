@@ -15,6 +15,7 @@
 | `btn_size`     | `btn_size`     |             | `string`  | `'btn-md'`   |
 | `btn_type`     | `btn_type`     |             | `string`  | `'button'`   |
 | `icon`         | `icon`         |             | `string`  | `'ft-save'`  |
+| `name`         | `name`         |             | `string`  | `undefined`  |
 | `text`         | `text`         |             | `any`     | `undefined`  |
 
 

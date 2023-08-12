@@ -9,17 +9,17 @@
 
 | Property                 | Attribute | Description | Type             | Default |
 | ------------------------ | --------- | ----------- | ---------------- | ------- |
-| `data`                   | `data`    |             | `any`            | `null`  |
+| `data`                   | --        |             | `guestInfo`      | `null`  |
 | `setupDataCountries`     | --        |             | `selectOption[]` | `null`  |
 | `setupDataCountriesCode` | --        |             | `selectOption[]` | `null`  |
 
 
 ## Events
 
-| Event          | Description | Type               |
-| -------------- | ----------- | ------------------ |
-| `getSetupData` |             | `CustomEvent<any>` |
-| `submitForm`   |             | `CustomEvent<any>` |
+| Event          | Description | Type                     |
+| -------------- | ----------- | ------------------------ |
+| `getSetupData` |             | `CustomEvent<any>`       |
+| `submitForm`   |             | `CustomEvent<guestInfo>` |
 
 
 ## Dependencies
