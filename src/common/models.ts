@@ -3,6 +3,12 @@ export class selectOption {
   text: string;
 }
 
+export class checkboxes {
+  value: string = '';
+  text: string = '';
+  checked: boolean = false;
+}
+
 export class guestInfo {
   firstName: string = '';
   lastName: string = '';

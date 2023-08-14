@@ -5,30 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
     <title>Stencil Component Starter</title>
 
+    <script type="module" src="/build/training.esm.js"></script>
+    <script nomodule src="/build/training.js"></script>
+  </head>
+  <body
+      ><h3>Hello world</h3>
+      <ir-radio-btn id="checkboxes"></ir-radio-btn>
+
     <script type="module" src="/build/ir-webcmp.esm.js"></script>
     <script nomodule src="/build/ir-webcmp.js"></script>
   </head>
-  <body>
-    <ir-radio-btn ></ir-radio-btn>
+</body>
 
     <script>
-      const radioBtn = document.querySelector('ir-radio-btn');
-      radioBtn.data = [
-        {
-          text: "",
-          value: "option1",
-        },
-        {
-          text: "Option 2",
-          value: "option2",
-        }
-      ]
+      const checkboxes = document.querySelector('ir-radio-btn');
+      checkboxes.selectedValue = 'orange';
+      checkboxes.data = [
+        { text: 'Apple', value: 'apple'},
+        { text: 'Orange', value: 'orange'},
+        { text: 'Banana', value: 'banana'}
+      ];
 
-      radioBtn.disabled=false
-
-      radioBtn.addEventListener('selectChange', (e) => {
-        console.log(e.detail);
-      })
-      </script>
+      document.addEventListener('selectChange', event => {
+        console.log(event.detail);
+      });
+    </script>
   </body>
 </html>

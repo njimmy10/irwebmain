@@ -11,7 +11,7 @@
 | -------- | --------- | ----------- | ------------------- | ----------- |
 | `name`   | `name`    |             | `string`            | `undefined` |
 | `open`   | `open`    |             | `boolean`           | `false`     |
-| `side`   | `side`    |             | `"left" \| "right"` | `undefined` |
+| `side`   | `side`    |             | `"left" \| "right"` | `'right'`   |
 
 
 ## Methods

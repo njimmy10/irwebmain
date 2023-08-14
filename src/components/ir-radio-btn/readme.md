@@ -10,6 +10,7 @@
 | Property        | Attribute        | Description | Type             | Default     |
 | --------------- | ---------------- | ----------- | ---------------- | ----------- |
 | `data`          | --               |             | `selectOption[]` | `undefined` |
+| `disabled`      | `disabled`       |             | `boolean`        | `undefined` |
 | `selectedValue` | `selected-value` |             | `any`            | `null`      |
 
 

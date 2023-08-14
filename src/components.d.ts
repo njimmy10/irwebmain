@@ -5,8 +5,8 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { guestInfo, selectOption } from "./common/models";
-export { guestInfo, selectOption } from "./common/models";
+import { checkboxes, guestInfo, selectOption } from "./common/models";
+export { checkboxes, guestInfo, selectOption } from "./common/models";
 export namespace Components {
     interface IrButton {
         "btn_block": boolean;
@@ -20,8 +20,13 @@ export namespace Components {
     }
     interface IrCheckbox {
         "checked": boolean;
+        "disabled": boolean;
         "label": string;
         "name": string;
+        "value": string;
+    }
+    interface IrCheckboxes {
+        "checkboxes": checkboxes[];
     }
     interface IrGuestInfo {
         "data": guestInfo;
@@ -118,6 +123,10 @@ export interface IrCheckboxCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLIrCheckboxElement;
 }
+export interface IrCheckboxesCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLIrCheckboxesElement;
+}
 export interface IrGuestInfoCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLIrGuestInfoElement;
@@ -150,6 +159,12 @@ declare global {
     var HTMLIrCheckboxElement: {
         prototype: HTMLIrCheckboxElement;
         new (): HTMLIrCheckboxElement;
+    };
+    interface HTMLIrCheckboxesElement extends Components.IrCheckboxes, HTMLStencilElement {
+    }
+    var HTMLIrCheckboxesElement: {
+        prototype: HTMLIrCheckboxesElement;
+        new (): HTMLIrCheckboxesElement;
     };
     interface HTMLIrGuestInfoElement extends Components.IrGuestInfo, HTMLStencilElement {
     }
@@ -214,6 +229,7 @@ declare global {
     interface HTMLElementTagNameMap {
         "ir-button": HTMLIrButtonElement;
         "ir-checkbox": HTMLIrCheckboxElement;
+        "ir-checkboxes": HTMLIrCheckboxesElement;
         "ir-guest-info": HTMLIrGuestInfoElement;
         "ir-icon": HTMLIrIconElement;
         "ir-input-text": HTMLIrInputTextElement;
@@ -240,9 +256,15 @@ declare namespace LocalJSX {
     }
     interface IrCheckbox {
         "checked"?: boolean;
+        "disabled"?: boolean;
         "label"?: string;
         "name"?: string;
-        "onCheckboxChange"?: (event: IrCheckboxCustomEvent<boolean>) => void;
+        "onCheckboxChange"?: (event: IrCheckboxCustomEvent<{ name: string; value: string; checked: boolean }>) => void;
+        "value"?: string;
+    }
+    interface IrCheckboxes {
+        "checkboxes"?: checkboxes[];
+        "onCheckboxesChange"?: (event: IrCheckboxesCustomEvent<checkboxes[]>) => void;
     }
     interface IrGuestInfo {
         "data"?: guestInfo;
@@ -338,6 +360,7 @@ declare namespace LocalJSX {
     interface IntrinsicElements {
         "ir-button": IrButton;
         "ir-checkbox": IrCheckbox;
+        "ir-checkboxes": IrCheckboxes;
         "ir-guest-info": IrGuestInfo;
         "ir-icon": IrIcon;
         "ir-input-text": IrInputText;
@@ -356,6 +379,7 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "ir-button": LocalJSX.IrButton & JSXBase.HTMLAttributes<HTMLIrButtonElement>;
             "ir-checkbox": LocalJSX.IrCheckbox & JSXBase.HTMLAttributes<HTMLIrCheckboxElement>;
+            "ir-checkboxes": LocalJSX.IrCheckboxes & JSXBase.HTMLAttributes<HTMLIrCheckboxesElement>;
             "ir-guest-info": LocalJSX.IrGuestInfo & JSXBase.HTMLAttributes<HTMLIrGuestInfoElement>;
             "ir-icon": LocalJSX.IrIcon & JSXBase.HTMLAttributes<HTMLIrIconElement>;
             "ir-input-text": LocalJSX.IrInputText & JSXBase.HTMLAttributes<HTMLIrInputTextElement>;

@@ -6,7 +6,7 @@ import { Component, Prop, h, Method } from '@stencil/core';
 })
 export class IrSidebar {
   @Prop() name: string;
-  @Prop() side: 'right' | 'left';
+  @Prop() side: 'right' | 'left' = 'right'
 
   @Prop({ mutable: true, reflect: true }) open: boolean = false;
 
